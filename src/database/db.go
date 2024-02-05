@@ -2,23 +2,18 @@ package database
 
 import (
 	"database/sql"
-	"log"
+	"net/http"
+	"src/util"
 )
 
 func InitDB(dsn string) *sql.DB {
 	// Open a connection to the database
 	conn, err := sql.Open("postgres", dsn)
-	if err != nil {
-		panic("Failed to connect to the database")
-	}
-	// defer conn.Close()
-	log.Default().Println("Connected to database")
+	util.HandleError(err, "Failed to open a connection to the database", http.StatusInternalServerError)
 
 	// Test the connection
 	err = conn.Ping()
-	if err != nil {
-		panic("Failed to ping the database")
-	}
+	util.HandleError(err, "Failed to ping the database", http.StatusInternalServerError)
 
 	return conn
 }

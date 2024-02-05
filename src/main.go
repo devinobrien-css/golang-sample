@@ -2,26 +2,21 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"src/database"
 	"src/routes"
+	"src/util"
 
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
 
-func loadEnv() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-}
-
 func main() {
-	loadEnv()
+	// load environment variables
+	err := godotenv.Load()
+	util.HandleError(err, "Error loading .env file", http.StatusInternalServerError)
 
 	// establish database connection
 	var (
@@ -40,13 +35,9 @@ func main() {
 	router := mux.NewRouter()
 	routes.InitRoutes(router, db)
 
-	// fetch server port from .env file
-	apiPort := os.Getenv("API_PORT")
-
 	// start server
+	apiPort := os.Getenv("API_PORT")
 	fmt.Printf("Server is running on http://localhost:%s\n", apiPort)
 	serverErr := http.ListenAndServe(fmt.Sprintf(":%s", apiPort), router)
-	if serverErr != nil {
-		fmt.Println("Error:", serverErr)
-	}
+	util.HandleError(serverErr, util.InternalServerError, http.StatusInternalServerError)
 }
