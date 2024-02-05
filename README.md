@@ -54,7 +54,7 @@ To get started with this Golang app, follow these steps:
 
 3. Follow the instructions provided in that repository's readMe to launch the instance
 
-### Testing
+## Testing
 
 A [postman collection](postman-testing.json) has been included for convenient testing
 
