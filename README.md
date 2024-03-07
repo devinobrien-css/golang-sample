@@ -1,4 +1,5 @@
 # Golang Sample
+
 A sample golang server performing crud on a database
 
 ## Table of Contents
@@ -15,10 +16,10 @@ This server is dependent on a running database instance. You can use one of the 
 
 ### PostgreSQL
 
-1. Clone the `docker-postgres` repository to your local machine:
+1. Clone the `docker-postgres-sample` repository to your local machine:
 
     ```bash
-    $ git clone https://github.com/devinobrien-css/docker-postgres.git
+    $ git clone https://github.com/devinobrien-css/docker-postgres-sample.git
     ...
     ```
 
